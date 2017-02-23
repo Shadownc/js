@@ -1,0 +1,25 @@
+<htmL>
+
+	<head>
+		<meta content="text/html;charset=utf-8" http-equiv="content-type">
+		<script type="text/javascript">
+			function test() {
+				var mycars = new Array();
+				mycars[0] = document.getElementById("a0").value;
+				mycars[1] = document.getElementById("a1").value;
+				mycars[2] = document.getElementById("a2").value;
+				mycars[3] = document.getElementById("a3").value;
+				alert(mycars);
+			}
+		</script>
+	</head>
+
+	<body>
+		<input type='text' value="" id='a0' name="show0" />
+		<input type="text" value="" id='a1' name="show1" />
+		<input type="text" value="" id="a2" name="show2" />
+		<input type="text" value="" id="a3" name="show3" />
+		<input type="button" value="提交" onclick="test();" />
+	</body>
+
+</htmL>

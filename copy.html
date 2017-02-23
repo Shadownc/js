@@ -8,26 +8,29 @@
 	</head>
 
 	<body>
+		<button id="addbtn">增加</button>
 		<table border="1px solid #cdcdcb" cellspacing="0" cellpadding="0" id="tb">
 			<tr>
-				<td id="TROW" rowspan="4" width="10%" align="center">其他(列明开支细目)</td>
+				<td id="TROW" class="TROW" rowspan="4" width="10%" align="center">其他(列明开支细目)</td>
 			</tr>
 
-			<tr id="TTTT">
+			<tr id="TTTT" class="TTTT">
 				<td colspan="4">照相费<input type="text" id="zxf" /><button id="del"><img src="images/del.png"/></button></td>
 				<td><input type="text" name="" id="file" value="" /></td>
 				<td><input type="file" id="upload" value="选择文件上传" /></td>
 			</tr>
-			<tr id="before">
+			<tr id="before" class="before">
 				<td width="70%" align="center" colspan="6">合计</td>
 				<td width="15%" align="center"><span>0.00</span></td>
 				<td width="15%"></td>
 			</tr>
 			<input type="hidden" value="" id="num" />
 		</table>
-
+		
+		
+		<div id="xx"></div>
 		<script type="text/javascript" src="js/jquery.1.11.1.js"></script>
-		<script type="text/javascript" src="js/js.js"></script>
+		<script type="text/javascript" src="js/js2.js"></script>
 	</body>
 
 </html>

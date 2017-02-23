@@ -11,24 +11,24 @@ $(document).ready(function() {
 		var html = "";
 		var l = data.type.length;
 		var c = 6;
-		var rows = Math.ceil(l/c); 
+		var rows = Math.ceil(l / c);
 		var i = 0;
 
 		$("#TROW").attr("rowspan", rows + 2);
 		$.each(data.type, function(i, c) {
-			if(i % 6 == 0){
+			if(i % 6 == 0) {
 				html += "<tr>";
 			}
-			html += "<td width=\"15%\"><button value=\""+c.id+"\" class=\"btn\">"+c.title+"</button></td>";
-			if(i % 5 == 0 && i < l-1 && i != 0){
+			html += "<td width=\"15%\"><button value=\"" + c.id + "\" class=\"btn\">" + c.title + "</button></td>";
+			if(i % 5 == 0 && i < l - 1 && i != 0) {
 				html += "</tr>";
 			}
 		})
-		
+
 		var t1 = "";
-		if(l % c != 0){
+		if(l % c != 0) {
 			var x = c - l % c;
-			for(var j=0;j<x;j++){
+			for(var j = 0; j < x; j++) {
 				t1 += "<td width=\"15%\"></td>";
 			}
 			t1 += "</tr>"
@@ -45,7 +45,7 @@ $(document).ready(function() {
 						</tr>';
 			$("#TROW").attr("rowspan", parseInt($("#TROW").attr("rowspan")) + 1);
 			$("#before").before(html);
-		})
+		});
 	})
 })
 

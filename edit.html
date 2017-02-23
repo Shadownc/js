@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta http-equiv="Cache-Control" content="no-cache">
+		<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+		<meta name="format-detection" content="email=no" />
+		<title>添加信息</title>
+		<link rel="stylesheet" href="css/main.css" />
+	</head>
+
+	<body>
+		<section>
+			<div class="msg">
+				<div id="list"></div>
+			</div>
+		</section>
+		<section class="foot">
+			<button id="btn">添加地址</button>
+		</section>
+		<section class="page">
+			<ul>
+				<li><label>姓名</label><input type="text" placeholder="请输入您的姓名" id="name" /></li>
+				<li><label>联系电话</label><input type="text" placeholder="请输入您的联系方式" id="tel" /></li>
+				<li><textarea placeholder="请输入具体地址" rows="3" id="address"></textarea></li>
+			</ul>
+			<button id="save">保存</button>
+		</section>
+		<section class="page2">
+			<ul>
+				<li><label>姓名</label><input type="text" id="changename" /></li>
+				<li><label>电话</label><input type="text" id="changetel" /></li>
+				<li><label>地址</label><input type="text" id="changeaddress" /></li>
+			</ul>
+			<button id="save-change">保存</button>
+		</section>
+		<script type="text/javascript" src="js/jquery.1.11.1.js"></script>
+		<script>
+			var List = [],
+				List2 = [];
+			/*var msg = getmsg();
+			console.log(msg);
+			var a = {
+				"name": msg[0],
+				"tel": msg[1],
+				"address": msg[2]
+			};
+			List.push(a);
+			var change = getmsg();
+			var b = {
+				"changename": change[3],
+				"changetel": change[4],
+				"changeaddress": change[5]
+			};
+			List2.push(b);*/
+			refreshList();
+			$('#btn').click(function() {
+				$('.page').css("display", "block");
+				$('.page').animate({ left: "0" });
+			});
+			$('#save').click(function() {
+				var msg = getmsg();
+				var a = {
+					"name": msg[0],
+					"tel": msg[1],
+					"address": msg[2]
+				}
+				List.push(a); //像数组的末尾添加一个或多个元素
+				refreshList(); //刷新页面
+				clear(); //清空文本框
+
+				$('.page').animate({ left: "100%" }, function() {
+					$('.page').css("display", "none");
+				});
+			});
+			$("#change").click(function() {
+				var change = getmsg();
+				var b = {
+					"changename": change[3],
+					"changetel": change[4],
+					"changeaddress": change[5]
+				}
+				List2.push(b);
+				var p = List2[i];
+
+			})
+
+			function refreshList() {
+				var l = List.length,
+					html = ''
+				for(var i = 0; i < l; i++) {
+					var o = List[i];
+					html += "<div class=\"cz\"><dl><dt>" + o.name + "-" + o.tel + "</dt><dd>" + o.address + "</dd></dl><button id=\"edit\" onclick=\"edit(this)\">编辑</button><button id=\"del\" onclick=\"del(this)\"> 删除 </button></div> ";
+				}
+				$("#list").empty().append(html);
+			}
+
+			function clear() {
+				//清空文本框
+				$("#name").val('');
+				$("#tel").val('');
+				$("#address").val('');
+			}
+
+			function getmsg() {
+				var arr = new Array();
+				arr[0] = $("#name").val();
+				arr[1] = $("#tel").val();
+				arr[2] = $("#address").val();
+				arr[3] = $("#changename").val();
+				arr[4] = $("#changetel").val();
+				arr[5] = $("#changeaddress").val();
+				return arr
+			}
+
+			function edit(obj) {
+				$(".page2").css("display", "block");
+				$(".page2").animate({ bottom: "0" });
+			}
+
+			function del(obj) {
+				$(obj).parent().remove();
+			}
+		</script>
+	</body>
+
+</html>

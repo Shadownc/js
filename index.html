@@ -2,32 +2,144 @@
 <html>
 
 	<head>
-		<meta charset="utf-8" />
-		<title>test</title>
-		<link rel="stylesheet" href="css/style.css" />
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta http-equiv="Cache-Control" content="no-cache">
+		<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="format-detection" content="telephone=no">
+		<meta name="format-detection" content="email=no" />
+		<title>添加信息</title>
+		<link rel="stylesheet" href="css/main.css" />
 	</head>
 
 	<body>
-		<table border="1px solid #cdcdcb" cellspacing="0" cellpadding="0" id="tb">
-			<tr>
-				<td id="TROW" rowspan="4" width="10%" align="center">其他(列明开支细目)</td>
-			</tr>
-
-			<tr id="TTTT">
-				<td colspan="4">照相费<input type="text" id="zxf" /><button id="del"><img src="images/del.png"/></button></td>
-				<td><input type="text" name="" id="file" value="" /></td>
-				<td><input type="file" id="upload" value="选择文件上传" /></td>
-			</tr>
-			<tr id="before">
-				<td width="70%" align="center" colspan="6">合计</td>
-				<td width="15%" align="center"><span>0.00</span></td>
-				<td width="15%"></td>
-			</tr>
-			<input type="hidden" value="" id="num" />
-		</table>
-
+		<section>
+			<div class="msg">
+				<div id="list"></div>
+			</div>
+		</section>
+		<section class="foot">
+			<button id="btn">添加地址</button>
+		</section>
+		<section class="page">
+			<ul>
+				<li><label>姓名</label><input type="text" placeholder="请输入您的姓名" name="name" required id="name" /></li>
+				<li><label>联系电话</label><input type="text" name="tel" required placeholder="请输入您的联系方式" id="tel" /></li>
+				<li><textarea required placeholder="请输入具体地址" rows="3" name="address" id="address"></textarea></li>
+			</ul>
+			<button id="save">保存</button>
+		</section>
+		<section class="page2">
+			<ul>
+				<li><label>姓名</label><input type="text" id="changename" /></li>
+				<li><label>电话</label><input type="text" id="changetel" /></li>
+				<li><label>地址</label><input type="text" id="changeaddress" /></li>
+			</ul>
+			<button id="save-change">保存</button>
+		</section>
 		<script type="text/javascript" src="js/jquery.1.11.1.js"></script>
-		<script type="text/javascript" src="js/js.js"></script>
+		<script>
+			var List = [];
+			refreshList();
+			$('#btn').click(function() {
+				$('.page').css("display", "block");
+				$('.page').animate({ left: "0" });
+			});
+			$('#save').click(function() {
+				var msg = getmsg();
+				var a = {
+					"name": msg[0],
+					"tel": msg[1],
+					"address": msg[2]
+				}
+				List.push(a); //像数组的末尾添加一个或多个元素
+				refreshList(); //刷新页面
+				clear(); //清空文本框
+
+				$('.page').animate({ left: "100%" }, function() {
+					$('.page').css("display", "none");
+				});
+			});
+			$("#change").click(function() {
+				var change = getmsg();
+				var b = {
+					"changename": change[3],
+					"changetel": change[4],
+					"changeaddress": change[5]
+				}
+				List2.push(b);
+				var p = List2[i];
+
+			})
+
+			function refreshList() {
+				var l = List.length,
+					html = ''
+				for(var i = 0; i < l; i++) {
+					var o = List[i];
+					html += "<div class=\"cz\"><dl><dt>" + o.name + "-" + o.tel + "</dt><dd>" + o.address + "</dd></dl><button id=\"edit\" data-id=\"" + i + "\" onclick=\"edit(this)\">编辑</button><button id=\"del\" data-id=\"" + i + "\" onclick=\"del(this)\"> 删除 </button></div> ";
+				}
+				$("#list").empty().append(html);
+			}
+
+			function clear() {
+				//清空文本框
+				$("#name").val('');
+				$("#tel").val('');
+				$("#address").val('');
+			}
+
+			function getmsg() {
+				var arr = new Array();
+				arr[0] = $("#name").val();
+				arr[1] = $("#tel").val();
+				arr[2] = $("#address").val();
+				arr[3] = $("#changename").val();
+				arr[4] = $("#changetel").val();
+				arr[5] = $("#changeaddress").val();
+				return arr
+			}
+
+			function edit(obj) {
+				var i = $(obj).attr("data-id");
+				$("#save-change").attr("data-id", i);
+
+				var o = List[i];
+				$("#changename").val(o.name);
+				$("#changetel").val(o.tel);
+				$("#changeaddress").val(o.address);
+				$(".page2").css("display", "block");
+				$(".page2").animate({ bottom: "0" });
+			}
+
+			$("#save-change").click(function() {
+				var i = $(this).attr("data-id")
+				List[i].name = $("#changename").val()
+				List[i].tel = $("#changetel").val()
+				List[i].address = $("#changeaddress").val()
+
+				refreshList()
+				clear(); //清空文本框
+
+				$('.page2').animate({ bottom: "-100%" }, function() {
+					$('.page2').css("display", "none");
+				});
+			});
+
+			function del(obj) {
+				/*
+				$(obj).parent().remove();*/
+				//TOSO  这里删除候  需要同时删除数组中对应数据  或者把数组清空   再向里面重新放入存在的数据
+				var i = $(obj).attr("data-id");
+				console.log(i);
+				var a = $(obj).parent();
+				a.attr("data-id", i);
+				List.splice(i, 1); //整个List数组 data-id就是下标值
+				refreshList();
+			}
+		</script>
 	</body>
 
 </html>
